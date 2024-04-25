@@ -22,3 +22,10 @@ const (
 	Route_Proxy    TRouteType = 4 //指向反向代理的路由项
 	Route_Static   TRouteType = 5 //指向静态目录的路由项
 )
+
+// 保存Conf文件的路径常量
+const (
+	Default_Conf_Dir   string = "./Conf" //Conf子目录，所有Conf文件都分别保存到相应的子目录下
+	Routes_Conf_Subdir string = "Routes" //保存路由设置的Conf文件
+	System_Conf_Subdir string = "System" //保存系统设置的Conf文件
+)

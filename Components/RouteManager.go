@@ -2,6 +2,7 @@ package Components
 
 import (
 	"errors"
+	"fmt"
 	"github.com/gogf/gf/encoding/gjson"
 	"github.com/gogf/gf/os/gfile"
 	"strings"
@@ -79,6 +80,7 @@ func (p *TRouteManager) SaveItemsToFile(ASubDir string) {
 		//用下划线替换URL中的/分隔符作为文件名
 		mFilename = strings.Replace(v.UrlString, "/", "_", -1)
 		mFilename = gfile.Join(p.ConfDir, gfile.Join(ASubDir, mFilename)+".conf")
+		fmt.Println("文件名：", mFilename)
 		mJson := gjson.New(v)
 		mContent = mJson.Export()
 		_ = gfile.PutContents(mFilename, mContent)
@@ -88,7 +90,7 @@ func (p *TRouteManager) SaveItemsToFile(ASubDir string) {
 // AllConfFiles 列举指定目录下所有conf文件
 func (p *TRouteManager) AllConfFiles() []string {
 	mDir := p.ConfDir
-	//mDir := gfile.Join(gfile.Pwd(), p.ConfDir)
+	mDir = gfile.Join(p.ConfDir, "Routes")
 	mFiles, _ := gfile.ScanDirFile(mDir, "*.conf", false)
 	return mFiles
 }

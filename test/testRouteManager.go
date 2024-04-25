@@ -7,15 +7,15 @@ import (
 
 func TestRM() {
 	var mRM cc.TRouteManager
-	mRM.ConfDir = "./Conf"
 	mRM.Init()
+	mRM.ConfDir = cc.Default_Conf_Dir
 	fmt.Println("添加路由项")
 	mRM.AddItem(cc.Route_Lua, "/hello1", "hello1")
 	mRM.AddItem(cc.Route_Plugin, "/hello2", "hello2")
 	mRM.AddItem(cc.Route_Proxy, "/hello3", "http://www.baidu.com")
 	fmt.Println("所有路由项:::::", mRM.Items)
 	fmt.Println("保存到文件")
-	mRM.SaveItemsToFile("")
+	mRM.SaveItemsToFile(cc.Routes_Conf_Subdir) //保存到子目录下
 	fmt.Println("保存完毕，看conf目录")
 	fmt.Println("重新初始化")
 	mRM.Init()
