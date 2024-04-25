@@ -1,4 +1,4 @@
-package components
+package Components
 
 import (
 	"errors"
@@ -57,7 +57,6 @@ func (p *TRouteManager) AddItemFromFile(AFilename string) error {
 	} else {
 		mFilename = AFilename
 	}
-	mFilename = gfile.Join(p.ConfDir, mFilename)
 	if gfile.Exists(AFilename) == true {
 		mC := gfile.GetContents(mFilename)
 		mJson := gjson.New(mC)
@@ -73,13 +72,13 @@ func (p *TRouteManager) AddItemFromFile(AFilename string) error {
 }
 
 // SaveItemsToFile 将Items分别保存到不同的文件中
-func (p *TRouteManager) SaveItemsToFile(ADir string) {
+func (p *TRouteManager) SaveItemsToFile(ASubDir string) {
 	var mFilename string
 	var mContent string
 	for _, v := range p.Items {
 		//用下划线替换URL中的/分隔符作为文件名
 		mFilename = strings.Replace(v.UrlString, "/", "_", -1)
-		mFilename = gfile.Join(p.ConfDir, gfile.Join(ADir, mFilename)+".conf")
+		mFilename = gfile.Join(p.ConfDir, gfile.Join(ASubDir, mFilename)+".conf")
 		mJson := gjson.New(v)
 		mContent = mJson.Export()
 		_ = gfile.PutContents(mFilename, mContent)

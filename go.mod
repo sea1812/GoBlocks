@@ -1,4 +1,4 @@
-module MyLua
+module GoBlocks
 
 go 1.22
 
