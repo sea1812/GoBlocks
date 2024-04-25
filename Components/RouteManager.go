@@ -90,7 +90,7 @@ func (p *TRouteManager) SaveItemsToFile(ASubDir string) {
 // AllConfFiles 列举指定目录下所有conf文件
 func (p *TRouteManager) AllConfFiles() []string {
 	mDir := p.ConfDir
-	mDir = gfile.Join(p.ConfDir, "Routes")
+	mDir = gfile.Join(p.ConfDir, Routes_Conf_Subdir)
 	mFiles, _ := gfile.ScanDirFile(mDir, "*.conf", false)
 	return mFiles
 }

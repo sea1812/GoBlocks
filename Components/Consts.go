@@ -27,5 +27,6 @@ const (
 const (
 	Default_Conf_Dir   string = "./Conf" //Conf子目录，所有Conf文件都分别保存到相应的子目录下
 	Routes_Conf_Subdir string = "Routes" //保存路由设置的Conf文件
+	Redis_Conf_Subdir  string = "Redis"  //保存Redis设置的Conf文件
 	System_Conf_Subdir string = "System" //保存系统设置的Conf文件
 )
