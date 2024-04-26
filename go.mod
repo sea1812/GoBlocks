@@ -2,7 +2,10 @@ module GoBlocks
 
 go 1.22
 
-require github.com/gogf/gf v1.16.9
+require (
+	github.com/gogf/gf v1.16.9
+	github.com/lib/pq v1.10.9
+)
 
 require (
 	github.com/BurntSushi/toml v0.3.1 // indirect

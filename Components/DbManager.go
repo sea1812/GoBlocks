@@ -2,6 +2,7 @@ package Components
 
 import (
 	"errors"
+	"fmt"
 	"github.com/gogf/gf/database/gdb"
 	"github.com/gogf/gf/encoding/gjson"
 	"github.com/gogf/gf/os/gfile"
@@ -25,17 +26,17 @@ type TDbItem struct {
 }
 
 type TDbItemGroup struct {
-	Nodes []TDbItem
+	Nodes []*TDbItem
 	Name  string
 }
 
 type TDbManager struct {
-	Groups  []TDbItemGroup
+	Groups  []*TDbItemGroup
 	ConfDir string //保存配置文件的目录
 }
 
 // SaveGroupToFile 保存Group到Conf文件
-func (p *TDbItemGroup) SaveGroupToFile(ADir string) {
+func (p *TDbItemGroup) SaveGroupToFile() {
 	a := gjson.New(p.Nodes)
 	//组合文件名
 	mFilename := gfile.Join(gfile.Join(Default_Conf_Dir, Db_Conf_Subdir), p.Name+".conf")
@@ -87,7 +88,7 @@ func (p *TDbItemGroup) AddItem(AItem TDbItem) {
 		Weight:   AItem.Weight,
 		Instance: nil,
 	}
-	p.Nodes = append(p.Nodes, mItem)
+	p.Nodes = append(p.Nodes, &mItem)
 }
 
 // AddGroup 在TDbManager中增加Group
@@ -96,7 +97,7 @@ func (p *TDbManager) AddGroup(AName string) {
 		Nodes: nil,
 		Name:  AName,
 	}
-	p.Groups = append(p.Groups, mGroup)
+	p.Groups = append(p.Groups, &mGroup)
 }
 
 // Group 按名字查找Group
@@ -104,13 +105,40 @@ func (p *TDbManager) Group(AName string) *TDbItemGroup {
 	var mR *TDbItemGroup = nil
 	for _, v := range p.Groups {
 		if v.Name == AName {
-			mR = &v
+			mR = v
 		}
 	}
 	return mR
 }
 
+// ToConfig 转换为gdb.Config对象
+func (p *TDbManager) ToConfig() gdb.Config {
+	var mConfig map[string]gdb.ConfigGroup = make(map[string]gdb.ConfigGroup)
+	fmt.Println("---------1111---------")
+	fmt.Println(p.Groups)
+	fmt.Println("---------1111---------")
+	for _, v_group := range p.Groups {
+		fmt.Println("Loop group", v_group)
+		var mC []gdb.ConfigNode
+		for _, v_node := range v_group.Nodes {
+			fmt.Println("Loop v_node", v_node)
+			mC = append(mC, gdb.ConfigNode{
+				Host:   v_node.Host,
+				Port:   fmt.Sprint(v_node.Port),
+				User:   v_node.User,
+				Pass:   v_node.Pass,
+				Name:   v_node.Name,
+				Type:   v_node.Type,
+				Role:   v_node.Role,
+				Weight: v_node.Weight,
+			})
+			fmt.Println("Loop", mC)
+		}
+		mConfig[v_group.Name] = mC
+	}
+	return mConfig
+}
+
 // Start 创建实例，启动并连接数据库服务器
 func (p *TDbManager) Start() {
-
 }

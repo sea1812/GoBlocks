@@ -3,6 +3,8 @@ package test
 import (
 	cc "GoBlocks/Components"
 	"fmt"
+	"github.com/gogf/gf/database/gdb"
+	_ "github.com/lib/pq"
 )
 
 func TestDM() {
@@ -11,8 +13,6 @@ func TestDM() {
 	}
 	fmt.Println("添加Group")
 	mDM.AddGroup("default")
-	fmt.Println("添加第二个Group")
-	mDM.AddGroup("second")
 	//找到第一个Group
 	mGroup := mDM.Group("default")
 	if mGroup != nil {
@@ -30,9 +30,18 @@ func TestDM() {
 		})
 	}
 	fmt.Println("保存到文件")
-	mGroup.SaveGroupToFile(cc.Db_Conf_Subdir)
+	mGroup.SaveGroupToFile()
 	fmt.Println("从文件载入")
 	mGroup.Nodes = nil
 	_ = mGroup.LoadItemsFromFile()
+	fmt.Println("当前的Groups")
 	fmt.Println(mGroup.Nodes)
+	fmt.Println("---------")
+	fmt.Println("当前的DM")
+	fmt.Println(mDM)
+	mConfig := mDM.ToConfig()
+	gdb.SetConfig(mConfig)
+	mDb2, _ := gdb.New("default")
+	res, _ := mDb2.Model("test").All()
+	fmt.Println(res)
 }

@@ -1,7 +1,6 @@
 package Components
 
 import (
-	"github.com/gogf/gf/database/gdb"
 	"github.com/gogf/gf/net/ghttp"
 )
 
@@ -34,7 +33,7 @@ type TApp struct {
 	EnableCache        bool          // 是否启用Cache，如果启用CAHCE同时也启用Redis则缓存后端使用Redis，否则使用内存Cache
 	MainServer         *ghttp.Server //主Web服务器，对应g.Server()
 	RedisServers       TRedisManager //主Redis，对应g.Redis()
-	DatabaseServers    []gdb.DB      //主数据库，对应g.DB()
+	DatabaseServers    TDbManager    //主数据库，对应g.DB()
 }
 
 // Init 初始化，
