@@ -18,15 +18,14 @@ func TestDM() {
 	if mGroup != nil {
 		fmt.Println("在group中增加Item")
 		mGroup.AddItem(cc.TDbItem{
-			Host:     "127.0.0.1",
-			Port:     5432,
-			User:     "postgres",
-			Pass:     "123456",
-			Name:     "test",
-			Type:     string(cc.Db_Postgres),
-			Role:     "master",
-			Weight:   0,
-			Instance: nil,
+			Host:   "127.0.0.1",
+			Port:   5432,
+			User:   "postgres",
+			Pass:   "123456",
+			Name:   "test",
+			Type:   string(cc.Db_Postgres),
+			Role:   "master",
+			Weight: 0,
 		})
 	}
 	fmt.Println("保存到文件")
