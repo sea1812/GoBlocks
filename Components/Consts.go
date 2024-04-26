@@ -25,8 +25,20 @@ const (
 
 // 保存Conf文件的路径常量
 const (
-	Default_Conf_Dir   string = "./Conf" //Conf子目录，所有Conf文件都分别保存到相应的子目录下
-	Routes_Conf_Subdir string = "Routes" //保存路由设置的Conf文件
-	Redis_Conf_Subdir  string = "Redis"  //保存Redis设置的Conf文件
-	System_Conf_Subdir string = "System" //保存系统设置的Conf文件
+	Default_Conf_Dir   string = "./Conf"   //Conf子目录，所有Conf文件都分别保存到相应的子目录下
+	Routes_Conf_Subdir string = "Routes"   //保存路由设置的Conf文件
+	Redis_Conf_Subdir  string = "Redis"    //保存Redis设置的Conf文件
+	Db_Conf_Subdir     string = "Database" //保存Redis设置的Conf文件
+	System_Conf_Subdir string = "System"   //保存系统设置的Conf文件
+)
+
+// TDbType TDbManager的数据库type
+type TDbType string
+
+const (
+	Db_MySQL    TDbType = "mysql"
+	Db_Postgres TDbType = "pgsql"
+	Db_Sqlite   TDbType = "sqlite"
+	Db_MsSQL    TDbType = "mssql"
+	Db_Oracle   TDbType = "oracle"
 )

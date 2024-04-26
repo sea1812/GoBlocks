@@ -10,5 +10,5 @@ func main() {
 	//初始化插件管理器
 	//初始化脚本管理器
 	//s.Run()
-	test.TestRedisM()
+	test.TestDM()
 }

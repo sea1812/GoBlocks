@@ -30,8 +30,8 @@ type TRedisItem struct {
 }
 
 type TRedisManager struct {
-	Items   []TRedisItem //机群列表
-	ConfDir string       //保存conf文件的文件夹
+	Items   []*TRedisItem //机群列表
+	ConfDir string        //保存conf文件的文件夹
 }
 
 // AddItem 添加服务器记录
@@ -50,7 +50,7 @@ func (p *TRedisManager) AddItem(AItem TRedisItem) {
 		TLSSkipVerify:  AItem.TLSSkipVerify,
 		Instance:       nil,
 	}
-	p.Items = append(p.Items, mItem)
+	p.Items = append(p.Items, &mItem)
 }
 
 // AddItemFromFile 从Conf文件中添加服务器记录
@@ -104,7 +104,7 @@ func (p *TRedisManager) Server(AName string) *TRedisItem {
 	var mR *TRedisItem = nil
 	for _, v := range p.Items {
 		if v.Name == AName {
-			mR = &v
+			mR = v
 			break
 		}
 	}
