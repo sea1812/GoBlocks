@@ -39,9 +39,10 @@ func TestDM() {
 	fmt.Println("---------")
 	fmt.Println("当前的DM")
 	fmt.Println(mDM)
+	fmt.Println("查询下数据库")
 	mConfig := mDM.ToConfig()
 	gdb.SetConfig(mConfig)
 	mDb2, _ := gdb.New("default")
 	res, _ := mDb2.Model("test").All()
-	fmt.Println(res)
+	fmt.Println("查询结果：", res)
 }

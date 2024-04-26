@@ -14,15 +14,14 @@ import (
 */
 
 type TDbItem struct {
-	Host     string
-	Port     int
-	User     string
-	Pass     string
-	Name     string
-	Type     string
-	Role     string
-	Weight   int
-	Instance *gdb.DB
+	Host   string
+	Port   int
+	User   string
+	Pass   string
+	Name   string
+	Type   string
+	Role   string
+	Weight int
 }
 
 type TDbItemGroup struct {
@@ -55,15 +54,14 @@ func (p *TDbItemGroup) LoadItemsFromFile() error {
 			for _, v := range mJson.Array() {
 				mv := gjson.New(v)
 				p.AddItem(TDbItem{
-					Host:     mv.GetString("Host"),
-					Port:     mv.GetInt("Port"),
-					User:     mv.GetString("User"),
-					Pass:     mv.GetString("Pass"),
-					Name:     mv.GetString("Name"),
-					Type:     mv.GetString("Type"),
-					Role:     mv.GetString("Role"),
-					Weight:   mv.GetInt("Weight"),
-					Instance: nil,
+					Host:   mv.GetString("Host"),
+					Port:   mv.GetInt("Port"),
+					User:   mv.GetString("User"),
+					Pass:   mv.GetString("Pass"),
+					Name:   mv.GetString("Name"),
+					Type:   mv.GetString("Type"),
+					Role:   mv.GetString("Role"),
+					Weight: mv.GetInt("Weight"),
 				})
 			}
 			return nil
@@ -78,15 +76,14 @@ func (p *TDbItemGroup) LoadItemsFromFile() error {
 // AddItem 在Group中添加节点
 func (p *TDbItemGroup) AddItem(AItem TDbItem) {
 	mItem := TDbItem{
-		Host:     AItem.Host,
-		Port:     AItem.Port,
-		User:     AItem.User,
-		Pass:     AItem.Pass,
-		Name:     AItem.Name,
-		Type:     AItem.Type,
-		Role:     AItem.Role,
-		Weight:   AItem.Weight,
-		Instance: nil,
+		Host:   AItem.Host,
+		Port:   AItem.Port,
+		User:   AItem.User,
+		Pass:   AItem.Pass,
+		Name:   AItem.Name,
+		Type:   AItem.Type,
+		Role:   AItem.Role,
+		Weight: AItem.Weight,
 	}
 	p.Nodes = append(p.Nodes, &mItem)
 }
@@ -137,8 +134,4 @@ func (p *TDbManager) ToConfig() gdb.Config {
 		mConfig[v_group.Name] = mC
 	}
 	return mConfig
-}
-
-// Start 创建实例，启动并连接数据库服务器
-func (p *TDbManager) Start() {
 }
